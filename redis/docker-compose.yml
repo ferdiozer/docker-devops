@@ -1,8 +1,8 @@
 version: '2'
-
 services:
   redis-master:
     image: 'bitnami/redis:latest'
     ports:
       - '6379:6379'
-    command: redis-server --requirepass a3a8d31fb4cf4d629ad09fa9f2f7eddb
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"

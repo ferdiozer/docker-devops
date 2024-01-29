@@ -1,30 +1,51 @@
 # Docker Images, Mongo DB | RabbitMQ | Redis
 
-![](https://www.docker.com/wp-content/uploads/2022/05/Docker_Temporary_Image_Google_Blue_1080x1080_v1.png)
+![docker](examples/docker_img.png)
 
 * run
 `docker-compose up`
 * stop
 `docker-compose down`
 
-run in background
+* run in background
 `docker-compose up -d`
 
 [Docker Docs](https://docs.docker.com/)
 
 
+
+### Redis Notes
+```
+//## - With password
+version: '2'
+services:
+  redis-master:
+    image: 'bitnami/redis:latest'
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass a3a8d31fb4cf4d629ad09fa9f2f7eddb
+
+//## - No password
+version: '2'
+services:
+  redis-master:
+    image: 'bitnami/redis:latest'
+    ports:
+      - '6379:6379'
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+```
+
 ## Redis
 
-* Disable redis auth password 
+Disable redis auth password 
 ```
 sudo nano /etc/redis/redis.conf
 # requirepass yourpassword
-```
-### Redis Notes
-```
 redis-cli
 CONFIG SET requirepass "yourpassword"
 AUTH yourpassword
+docker run --name redis_cont -e ALLOW_EMPTY_PASSWORD=yes bitnami/redis:latest
 ```
 
 ```
